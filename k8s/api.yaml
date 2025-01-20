@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: auth-api-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: auth-api
+  template:
+    metadata:
+      labels:
+        app: auth-api
+    spec:
+      initContainers:
+      - name: wait-for-sql
+        image: mcr.microsoft.com/mssql-tools
+        command: ['/bin/bash', '-c']
+        args: ['until /opt/mssql-tools/bin/sqlcmd -S mssql-service -U sa -P YourStrong!Password -Q "SELECT 1"; do echo waiting for SQL Server; sleep 5; done']
+      containers:
+      - name: auth-api
+        image: auth-service-api:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8080
+        env:
+        - name: ASPNETCORE_ENVIRONMENT
+          value: Production
+        - name: ConnectionStrings__DefaultConnection
+          value: "Server=mssql-service;Database=AuthDB;User Id=sa;Password=YourStrong!Password;TrustServerCertificate=True;MultipleActiveResultSets=true"
+        envFrom:
+        - secretRef:
+            name: mssql-secret
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: auth-api-service
+spec:
+  selector:
+    app: auth-api
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+  type: LoadBalancer 
