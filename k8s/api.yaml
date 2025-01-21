@@ -12,6 +12,8 @@ spec:
       labels:
         app: auth-api
     spec:
+      securityContext:
+        runAsNonRoot: false
       initContainers:
       - name: wait-for-sql
         image: mcr.microsoft.com/mssql-tools
@@ -21,6 +23,8 @@ spec:
       - name: auth-api
         image: auth-service-api:latest
         imagePullPolicy: IfNotPresent
+        securityContext:
+          privileged: true
         ports:
         - containerPort: 8080
         env:

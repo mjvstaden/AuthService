@@ -19,7 +19,16 @@ RUN dotnet publish "AuthService.API.csproj" -c Release -o /app/publish /p:UseApp
 # Final stage
 FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS final
 WORKDIR /app
+
+# Create non-root user
+RUN addgroup --system --gid 1000 appgroup && \
+    adduser --system --uid 1000 --ingroup appgroup --shell /bin/sh appuser
+
+# Copy the published app and set permissions
 COPY --from=build /app/publish .
+RUN chown -R appuser:appgroup /app
+
+USER appuser
 EXPOSE 80
 EXPOSE 443
-ENTRYPOINT ["dotnet", "AuthService.API.dll"] 
+ENTRYPOINT ["dotnet", "AuthService.API.dll"]

@@ -68,8 +68,9 @@ public class Program
             };
         });
 
-        // Register IAuthenticationService
+        // Register services
         builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
+        builder.Services.AddScoped<IOrganizationService, OrganizationService>();
 
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
