@@ -101,6 +101,34 @@ apply_configs() {
     echo "✅ Configurations applied"
 }
 
+# Function to set up port forwarding
+setup_port_forwarding() {
+    echo "🔌 Setting up port forwarding..."
+    
+    # Kill any existing kubectl port-forward processes
+    pkill -f "kubectl port-forward" || true
+    
+    # Port forward for SQL Server (background)
+    kubectl port-forward service/mssql-service 1433:1433 &
+    echo "✅ SQL Server port forwarding set up on localhost:1433"
+    
+    # Port forward for API (background)
+    kubectl port-forward service/auth-api-service 8080:8080 &
+    echo "✅ API port forwarding set up on localhost:8080"
+    
+    # Give port forwarding a moment to establish
+    sleep 2
+}
+
+rebuild_docker_images() {
+    echo "🔨 Building Docker images..."
+
+    docker build -t auth-service-api:latest .
+    docker build -t auth-service-sql:latest .
+
+    kubectl apply -f k8s/sql.yaml && kubectl apply -f k8s/api.yaml
+}
+
 # Main deployment process
 main() {
     # Check for command line arguments
@@ -113,6 +141,9 @@ main() {
     echo "🔍 Checking prerequisites..."
     check_kubectl
     check_kubernetes
+
+    echo "🔨 Rebuilding Docker images..."
+    rebuild_docker_images
 
     echo "🚀 Starting deployment process..."
     cleanup
@@ -130,8 +161,14 @@ main() {
     echo "🌐 Service endpoints:"
     kubectl get services
 
+    # Set up port forwarding after services are ready
+    setup_port_forwarding
+
     echo "✅ Deployment completed successfully!"
-    echo "🔗 API should be accessible at http://localhost:8080"
+    echo "🔗 API is accessible at http://localhost:8080"
+    echo "🔗 SQL Server is accessible at localhost:1433"
+    echo "ℹ️  Port forwarding is running in the background"
+    echo "ℹ️  To stop port forwarding, run: pkill -f 'kubectl port-forward'"
 }
 
 # Run the main function with all command line arguments
