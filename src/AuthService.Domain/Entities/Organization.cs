@@ -1,4 +1,5 @@
 using System;
+using System.Text.Json.Serialization;
 
 namespace AuthService.Domain.Entities;
 
@@ -11,6 +12,9 @@ public class Organization
     public bool IsActive { get; set; } = true;
     
     // Navigation properties
+    [JsonIgnore]
     public ICollection<OrganizationUser> OrganizationUsers { get; set; } = new List<OrganizationUser>();
+    
+    [JsonIgnore]
     public ICollection<OrganizationRole> OrganizationRoles { get; set; } = new List<OrganizationRole>();
 } 
