@@ -1,3 +1,5 @@
+using System.Text.Json.Serialization;
+
 namespace AuthService.Domain.Entities;
 
 public class Permission
@@ -8,5 +10,6 @@ public class Permission
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     
     // Navigation properties
+    [JsonIgnore]
     public ICollection<OrganizationRolePermission> RolePermissions { get; set; } = new List<OrganizationRolePermission>();
 } 

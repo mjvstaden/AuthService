@@ -1,3 +1,5 @@
+using System.Text.Json.Serialization;
+
 namespace AuthService.Domain.Entities;
 
 public class OrganizationRole
@@ -9,7 +11,11 @@ public class OrganizationRole
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     
     // Navigation properties
-    public required Organization Organization { get; set; }
+    // Navigation properties
+    [JsonIgnore]
+    public Organization Organization { get; set; } = null!;
+    [JsonIgnore]
     public ICollection<OrganizationUserRole> UserRoles { get; set; } = new List<OrganizationUserRole>();
+    [JsonIgnore]
     public ICollection<OrganizationRolePermission> RolePermissions { get; set; } = new List<OrganizationRolePermission>();
 } 

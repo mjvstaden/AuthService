@@ -77,7 +77,7 @@ public class OrganizationController : ControllerBase
         return Ok(organizations);
     }
 
-    [HttpPost("{organizationId}/users/{userId}")]
+    [HttpPost("{organizationId}/user/{userId}")]
     public async Task<IActionResult> AddUserToOrganization(string organizationId, string userId)
     {
         try
