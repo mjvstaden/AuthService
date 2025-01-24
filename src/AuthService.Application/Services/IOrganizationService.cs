@@ -17,4 +17,7 @@ public interface IOrganizationService
     Task AssignPermissionToRoleAsync(string roleId, string permissionId);
     Task RemovePermissionFromRoleAsync(string roleId, string permissionId);
     Task<bool> UserHasPermissionAsync(string organizationId, string userId, string permissionName);
+    Task<Permission> CreatePermissionAsync(string name, string? description);
+    Task DeletePermissionAsync(string permissionId);
+    Task<Permission?> GetPermissionByIdAsync(string permissionId);
 } 

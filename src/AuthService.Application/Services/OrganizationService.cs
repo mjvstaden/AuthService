@@ -201,4 +201,34 @@ public class OrganizationService : IOrganizationService
             .AnyAsync(our => our.Role.RolePermissions
                 .Any(rp => rp.Permission.Name == permissionName));
     }
+
+    public async Task<Permission> CreatePermissionAsync(string name, string? description)
+    {
+        var permission = new Permission
+        {
+            Name = name,
+            Description = description
+        };
+
+        _context.Permissions.Add(permission);
+        await _context.SaveChangesAsync();
+        return permission;
+    }
+
+    public async Task DeletePermissionAsync(string permissionId)
+    {
+        var permission = await _context.Permissions.FindAsync(permissionId);
+        if (permission == null)
+        {
+            throw new InvalidOperationException("Permission not found.");
+        }
+
+        _context.Permissions.Remove(permission);
+        await _context.SaveChangesAsync();
+    }
+
+    public async Task<Permission?> GetPermissionByIdAsync(string permissionId)
+    {
+        return await _context.Permissions.FindAsync(permissionId);
+    }
 } 

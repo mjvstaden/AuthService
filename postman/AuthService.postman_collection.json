@@ -1,225 +1,402 @@
 {
-  "info": {
-    "name": "AuthService",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
-  },
-  "item": [
-    {
-      "name": "Authentication",
-      "item": [
-        {
-          "name": "Register",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "url": {
-              "raw": "{{baseUrl}}/api/auth/register",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "auth", "register"]
-            },
-            "body": {
-              "mode": "raw",
-              "raw": "{\n    \"email\": \"test@example.com\",\n    \"password\": \"Test123!\",\n    \"firstName\": \"Test\",\n    \"lastName\": \"User\"\n}"
-            }
-          }
-        },
-        {
-          "name": "Login",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "url": {
-              "raw": "{{baseUrl}}/api/auth/login",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "auth", "login"]
-            },
-            "body": {
-              "mode": "raw",
-              "raw": "{\n    \"email\": \"test@example.com\",\n    \"password\": \"Test123!\"\n}"
-            }
-          }
-        }
-      ]
-    },
-    {
-      "name": "Organizations",
-      "item": [
-        {
-          "name": "Create Organization",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Authorization",
-                "value": "Bearer {{authToken}}"
-              }
-            ],
-            "url": {
-              "raw": "{{baseUrl}}/api/organization",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "organization"]
-            },
-            "body": {
-              "mode": "raw",
-              "raw": "{\n    \"name\": \"Test Organization\",\n    \"description\": \"A test organization\"\n}"
-            }
-          }
-        },
-        {
-          "name": "Get User Organizations",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{authToken}}"
-              }
-            ],
-            "url": {
-              "raw": "{{baseUrl}}/api/organization/user",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "organization", "user"]
-            }
-          }
-        },
-        {
-          "name": "Get Organization Details",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "Authorization",
-                "value": "Bearer {{authToken}}"
-              }
-            ],
-            "url": {
-              "raw": "{{baseUrl}}/api/organization/{{organizationId}}",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "organization", "{{organizationId}}"]
-            }
-          }
-        },
-        {
-          "name": "Add User to Organization",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Authorization",
-                "value": "Bearer {{authToken}}"
-              }
-            ],
-            "url": {
-              "raw": "{{baseUrl}}/api/organization/{{organizationId}}/users",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "organization", "{{organizationId}}", "users"]
-            },
-            "body": {
-              "mode": "raw",
-              "raw": "{\n    \"userId\": \"{{userId}}\"\n}"
-            }
-          }
-        },
-        {
-          "name": "Create Organization Role",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Authorization",
-                "value": "Bearer {{authToken}}"
-              }
-            ],
-            "url": {
-              "raw": "{{baseUrl}}/api/organization/{{organizationId}}/roles",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "organization", "{{organizationId}}", "roles"]
-            },
-            "body": {
-              "mode": "raw",
-              "raw": "{\n    \"name\": \"Admin\",\n    \"description\": \"Organization administrator\"\n}"
-            }
-          }
-        },
-        {
-          "name": "Assign Role to User",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Authorization",
-                "value": "Bearer {{authToken}}"
-              }
-            ],
-            "url": {
-              "raw": "{{baseUrl}}/api/organization/{{organizationId}}/users/{{userId}}/roles",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "organization", "{{organizationId}}", "users", "{{userId}}", "roles"]
-            },
-            "body": {
-              "mode": "raw",
-              "raw": "{\n    \"roleId\": \"{{roleId}}\"\n}"
-            }
-          }
-        },
-        {
-          "name": "Add Permission to Role",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              },
-              {
-                "key": "Authorization",
-                "value": "Bearer {{authToken}}"
-              }
-            ],
-            "url": {
-              "raw": "{{baseUrl}}/api/organization/{{organizationId}}/roles/{{roleId}}/permissions",
-              "host": ["{{baseUrl}}"],
-              "path": ["api", "organization", "{{organizationId}}", "roles", "{{roleId}}", "permissions"]
-            },
-            "body": {
-              "mode": "raw",
-              "raw": "{\n    \"permissionId\": \"{{permissionId}}\"\n}"
-            }
-          }
-        }
-      ]
-    }
-  ],
-  "variable": [
-    {
-      "key": "baseUrl",
-      "value": "http://localhost:8080"
-    }
-  ]
-} 
+	"info": {
+		"_postman_id": "a8ce4e56-c3eb-4ff2-a667-05b5fe7f60cb",
+		"name": "AuthService",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "27583906"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"test@example.com\",\n    \"password\": \"Test123!\",\n    \"firstName\": \"Test\",\n    \"lastName\": \"User\"\n}"
+						},
+						"url": "{{baseUrl}}/api/auth/register"
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"test@example.com\",\n    \"password\": \"Test123!\"\n}"
+						},
+						"url": "{{baseUrl}}/api/auth/login"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Organizations",
+			"item": [
+				{
+					"name": "Create Organization",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Test Organization\",\n    \"description\": \"A test organization\"\n}"
+						},
+						"url": "{{baseUrl}}/api/organization"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Organization Details",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}"
+							}
+						],
+						"url": "{{baseUrl}}/api/organization/{{organizationId}}"
+					},
+					"response": []
+				},
+				{
+					"name": "Get User Organizations",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}"
+							}
+						],
+						"url": "{{baseUrl}}/api/organization/user"
+					},
+					"response": []
+				},
+				{
+					"name": "Add User to Organization",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\": \"{{userId}}\"\n}"
+						},
+						"url": "{{baseUrl}}/api/organization/{{organizationId}}/users"
+					},
+					"response": []
+				},
+				{
+					"name": "Remove User from Organization",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/Organization/:organizationId/users/:userId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"Organization",
+								":organizationId",
+								"users",
+								":userId"
+							],
+							"variable": [
+								{
+									"key": "organizationId",
+									"value": "<organizationId>"
+								},
+								{
+									"key": "userId",
+									"value": "<userId>"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Organization Role",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Admin\",\n    \"description\": \"Organization administrator\"\n}"
+						},
+						"url": "{{baseUrl}}/api/organization/{{organizationId}}/roles"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Roles in Organization",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/Organization/:organizationId/roles",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"Organization",
+								":organizationId",
+								"roles"
+							],
+							"variable": [
+								{
+									"key": "organizationId",
+									"value": "<organizationId>"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Assign Role to User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"roleId\": \"{{roleId}}\"\n}"
+						},
+						"url": "{{baseUrl}}/api/organization/{{organizationId}}/users/{{userId}}/roles"
+					},
+					"response": []
+				},
+				{
+					"name": "Remove Role from User",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "{{baseUrl}}/api/Organization/{{organizationId}}/users/{{userId}}/roles/{{roleId}}"
+					},
+					"response": []
+				},
+				{
+					"name": "Check User Permission",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/Organization/:organizationId/users/:userId/has-permission/:permissionName",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"Organization",
+								":organizationId",
+								"users",
+								":userId",
+								"has-permission",
+								":permissionName"
+							],
+							"variable": [
+								{
+									"key": "organizationId",
+									"value": "<organizationId>"
+								},
+								{
+									"key": "userId",
+									"value": "<userId>"
+								},
+								{
+									"key": "permissionName",
+									"value": "<permissionName>"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Permission",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{JwtToken}}"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Permission Name\",\n    \"description\": \"Permission Description\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "Create Permission"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Permission by ID",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Permission",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{JwtToken}}"
+							}
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": "{{baseUrl}}/permissions/{{permissionId}}"
+					},
+					"response": []
+				},
+				{
+					"name": "Add Permission to Role",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"permissionId\": \"{{permissionId}}\"\n}"
+						},
+						"url": "{{baseUrl}}/api/organization/{{organizationId}}/roles/{{roleId}}/permissions"
+					},
+					"response": []
+				},
+				{
+					"name": "Remove Permission from Role",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{JwtToken}}"
+							}
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/roles/:roleId/permissions/{{permissionId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"roles",
+								":roleId",
+								"permissions",
+								"{{permissionId}}"
+							],
+							"variable": [
+								{
+									"key": "roleId",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8080"
+		},
+		{
+			"key": "organizationId",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "userId",
+			"value": "828ebcf7-ef33-4976-8914-5670046439a2",
+			"type": "default"
+		},
+		{
+			"key": "roleId",
+			"value": "043b4c22-4669-4658-97e0-cb569528b74a",
+			"type": "default"
+		},
+		{
+			"key": "permissionId",
+			"value": "ac2c4838-d689-49ac-a8d0-a8c15535acb9",
+			"type": "default"
+		}
+	]
+}
