@@ -79,16 +79,40 @@ public class Program
 
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
-        builder.Services.AddSwaggerGen();
+        builder.Services.AddSwaggerGen(options =>
+        {
+            var xmlFile = $"{System.Reflection.Assembly.GetExecutingAssembly().GetName().Name}.xml";
+            var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+            options.IncludeXmlComments(xmlPath);
+
+            options.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
+            {
+                Title = "AuthService API",
+                Version = "v1",
+                Description = "API for authentication and authorization",
+                Contact = new Microsoft.OpenApi.Models.OpenApiContact
+                {
+                    Name = "MJ van Staden",
+                    Email = "mjvstaden01@gmail.com",
+                    Url = new Uri("https://github.com/mjvstaden/AuthService")
+                },
+                License = new Microsoft.OpenApi.Models.OpenApiLicense
+                {
+                    Name = "MIT",
+                    Url = new Uri("https://opensource.org/licenses/MIT")
+                }
+            });
+        });
+
 
         var app = builder.Build();
 
         // Configure the HTTP request pipeline.
-        if (app.Environment.IsDevelopment())
-        {
-            app.UseSwagger();
-            app.UseSwaggerUI();
-        }
+        //if (app.Environment.IsDevelopment())
+        //{
+        app.UseSwagger();
+        app.UseSwaggerUI();
+        //}
 
         app.UseHttpsRedirection();
         app.UseAuthentication();
