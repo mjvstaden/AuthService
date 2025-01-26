@@ -20,4 +20,7 @@ public interface IOrganizationService
     Task<Permission> CreatePermissionAsync(string name, string? description);
     Task DeletePermissionAsync(string permissionId);
     Task<Permission?> GetPermissionByIdAsync(string permissionId);
+    Task<Organization> UpdateOrganizationAsync(string organizationId, string? name, string? description);
+    Task<OrganizationRole> UpdateRoleAsync(string roleId, string? name, string? description);
+    Task<Permission> UpdatePermissionAsync(string permissionId, string? name, string? description);
 } 

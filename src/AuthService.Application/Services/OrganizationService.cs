@@ -231,4 +231,64 @@ public class OrganizationService : IOrganizationService
     {
         return await _context.Permissions.FindAsync(permissionId);
     }
+
+public async Task<Organization> UpdateOrganizationAsync(string organizationId, string? name, string? description)
+{
+    var organization = await _context.Organizations.FindAsync(organizationId)
+        ?? throw new InvalidOperationException("Organization not found.");
+
+    if (!string.IsNullOrEmpty(name))
+    {
+        organization.Name = name;
+    }
+
+    if (description != null)
+    {
+        organization.Description = description;
+    }
+
+    _context.Organizations.Update(organization);
+    await _context.SaveChangesAsync();
+    return organization;
+}
+
+    public async Task<OrganizationRole> UpdateRoleAsync(string roleId, string? name, string? description)
+    {
+        var role = await _context.OrganizationRoles.FindAsync(roleId)
+            ?? throw new InvalidOperationException("Role not found.");
+
+        if (!string.IsNullOrEmpty(name))
+        {
+            role.Name = name;
+        }
+
+        if (description != null)
+        {
+            role.Description = description;
+        }
+
+        _context.OrganizationRoles.Update(role);
+        await _context.SaveChangesAsync();
+        return role;
+    }
+
+    public async Task<Permission> UpdatePermissionAsync(string permissionId, string? name, string? description)
+    {
+        var permission = await _context.Permissions.FindAsync(permissionId)
+            ?? throw new InvalidOperationException("Permission not found.");
+
+        if (!string.IsNullOrEmpty(name))
+        {
+            permission.Name = name;
+        }
+
+        if (description != null)
+        {
+            permission.Description = description;
+        }
+
+        _context.Permissions.Update(permission);
+        await _context.SaveChangesAsync();
+        return permission;
+    }
 } 

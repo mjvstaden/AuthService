@@ -319,6 +319,67 @@ public class OrganizationController : ControllerBase
         var hasPermission = await _organizationService.UserHasPermissionAsync(organizationId, userId, permissionName);
         return Ok(hasPermission);
     }
+
+        /// <summary>
+    /// Updates an existing organization.
+    /// </summary>
+    /// <param name="organizationId">The ID of the organization to be updated.</param>
+    /// <param name="request">The updated details of the organization.</param>
+    /// <returns>The updated organization.</returns>
+    [HttpPut("{organizationId}")]
+    public async Task<ActionResult<Organization>> UpdateOrganization(string organizationId, [FromBody] UpdateOrganizationRequest request)
+    {
+        try
+        {
+            var updatedOrganization = await _organizationService.UpdateOrganizationAsync(organizationId, request.Name, request.Description);
+            return Ok(updatedOrganization);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(new { message = ex.Message });
+        }
+    }
+
+    /// <summary>
+    /// Updates an existing role within an organization.
+    /// </summary>
+    /// <param name="roleId">The ID of the role to be updated.</param>
+    /// <param name="request">The updated details of the role.</param>
+    /// <returns>The updated role.</returns>
+    [HttpPut("roles/{roleId}")]
+    public async Task<ActionResult<OrganizationRole>> UpdateRole(string roleId, [FromBody] UpdateRoleRequest request)
+    {
+        try
+        {
+            var updatedRole = await _organizationService.UpdateRoleAsync(roleId, request.Name, request.Description);
+            return Ok(updatedRole);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(new { message = ex.Message });
+        }
+    }
+
+    /// <summary>
+    /// Updates an existing permission.
+    /// </summary>
+    /// <param name="permissionId">The ID of the permission to be updated.</param>
+    /// <param name="request">The updated details of the permission.</param>
+    /// <returns>The updated permission.</returns>
+    [HttpPut("permissions/{permissionId}")]
+    public async Task<ActionResult<Permission>> UpdatePermission(string permissionId, [FromBody] UpdatePermissionRequest request)
+    {
+        try
+        {
+            var updatedPermission = await _organizationService.UpdatePermissionAsync(permissionId, request.Name, request.Description);
+            return Ok(updatedPermission);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(new { message = ex.Message });
+        }
+    }
+
 }
 
 /// <summary>
@@ -366,5 +427,23 @@ public class CreatePermissionRequest
     /// <summary>
     /// An optional description of the permission.
     /// </summary>
+    public string? Description { get; set; }
+}
+
+public class UpdateOrganizationRequest
+{
+    public string? Name { get; set; }
+    public string? Description { get; set; }
+}
+
+public class UpdateRoleRequest
+{
+    public string? Name { get; set; }
+    public string? Description { get; set; }
+}
+
+public class UpdatePermissionRequest
+{
+    public string? Name { get; set; }
     public string? Description { get; set; }
 }
