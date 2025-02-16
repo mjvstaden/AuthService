@@ -1,9 +1,9 @@
 using AuthService.Application.Models;
-using AuthService.Application.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using AuthService.Application.Models.ExternalAuth;
 using System.Security.Claims;
+using AuthService.Application.Interfaces;
 
 namespace AuthService.API.Controllers;
 

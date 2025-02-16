@@ -13,6 +13,7 @@ using System.Net.Http.Headers;
 using System.Text.Json;
 using Microsoft.EntityFrameworkCore;
 using System.Net.Http.Json;
+using AuthService.Application.Interfaces;
 
 namespace AuthService.Application.Services;
 

@@ -1,4 +1,5 @@
 using AuthService.Application.Services;
+using AuthService.Application.Interfaces;
 using AuthService.Infrastructure.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -76,6 +77,8 @@ public class Program
         // Register services
         builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
         builder.Services.AddScoped<IOrganizationService, OrganizationService>();
+        builder.Services.AddScoped<IUserManagementService, UserManagementService>();
+        builder.Services.AddHttpClient();
 
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();

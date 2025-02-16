@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using AuthService.Application.Services;
 using AuthService.Domain.Entities;
 using System.Security.Claims;
 using Microsoft.Extensions.Logging;
+using AuthService.Application.Interfaces;
 
 namespace AuthService.API.Controllers;
 
