@@ -44,6 +44,42 @@
 						"url": "{{baseUrl}}/api/auth/login"
 					},
 					"response": []
+				},
+				{
+					"name": "Request Password Reset",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"test@example.com\"\n}"
+						},
+						"url": "{{baseUrl}}/api/usermanagement/request-password-reset"
+					},
+					"response": []
+				},
+				{
+					"name": "Reset Password",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"test@example.com\",\n    \"token\": \"your-reset-token\",\n    \"newPassword\": \"NewPassword123!\"\n}"
+						},
+						"url": "{{baseUrl}}/api/usermanagement/reset-password"
+					},
+					"response": []
 				}
 			]
 		},
@@ -369,6 +405,134 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Update Organization",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Updated Org Name\",\n    \"description\": \"Updated organization description\"\n}"
+						},
+						"url": "{{baseUrl}}/api/organizations/{{organizationId}}"
+					}
+				},
+				{
+					"name": "Update Role",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Updated Role Name\",\n    \"description\": \"Updated role description\"\n}"
+						},
+						"url": "{{baseUrl}}/api/organizations/roles/{{roleId}}"
+					}
+				},
+				{
+					"name": "Update Permission",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Updated Permission Name\",\n    \"description\": \"Updated permission description\"\n}"
+						},
+						"url": "{{baseUrl}}/api/organizations/permissions/{{permissionId}}"
+					}
+				},
+				{
+					"name": "Check User Permission",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}"
+							}
+						],
+						"url": "{{baseUrl}}/api/organizations/{{organizationId}}/users/{{userId}}/permissions/check?permissionName=your-permission-name"
+					}
+				},
+				{
+					"name": "Remove User From Organization",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}"
+							}
+						],
+						"url": "{{baseUrl}}/api/organizations/{{organizationId}}/users/{{userId}}"
+					}
+				},
+				{
+					"name": "Remove Role From User",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}"
+							}
+						],
+						"url": "{{baseUrl}}/api/organizations/{{organizationId}}/users/{{userId}}/roles/{{roleId}}"
+					}
+				},
+				{
+					"name": "Remove Permission From Role",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}"
+							}
+						],
+						"url": "{{baseUrl}}/api/organizations/roles/{{roleId}}/permissions/{{permissionId}}"
+					}
+				},
+				{
+					"name": "Delete Permission",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{authToken}}"
+							}
+						],
+						"url": "{{baseUrl}}/api/organizations/permissions/{{permissionId}}"
+					}
 				}
 			]
 		}
