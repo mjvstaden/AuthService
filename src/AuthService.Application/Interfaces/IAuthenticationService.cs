@@ -1,7 +1,7 @@
 using AuthService.Application.Models;
 using AuthService.Application.Models.ExternalAuth;
 
-namespace AuthService.Application.Services;
+namespace AuthService.Application.Interfaces;
 
 public interface IAuthenticationService
 {

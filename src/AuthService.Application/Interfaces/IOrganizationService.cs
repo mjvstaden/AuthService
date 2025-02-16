@@ -1,6 +1,6 @@
 using AuthService.Domain.Entities;
 
-namespace AuthService.Application.Services;
+namespace AuthService.Application.Interfaces;
 
 public interface IOrganizationService
 {
